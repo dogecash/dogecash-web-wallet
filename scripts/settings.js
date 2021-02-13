@@ -1,6 +1,7 @@
 //Settings Defaults
 var debug = false;
 var explorer = 'explorer.dogec.io';
+var explorerType ='blockbook';
 var networkEnabled = true;
 //Users need not look below here.
 //------------------------------
@@ -14,8 +15,17 @@ var walletAlreadyMade = 0;
 var dogecashversion = '1.02';
 var closeTheAlert = '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
 function setExplorer(){
-  explorer = document.getElementById("explorer").value
-  alert(`${explorer} has been set succesfully`);
+  let explorerURL = document.getElementById("explorer").value
+  if(explorerURL == 'custom'){
+    explorerURL = document.getElementById("explorerURL").value
+    let explorerType = document.getElementById("explorerType").value
+  }
+  //Make sure URL is functional
+  explorerURL.trim().replace('https://','').replace('http://','').replace('www.','');
+  url = 'https://'+explorerURL;
+  explorer = explorerURL;
+  //Different Explorer Api Types to be added as necessary 
+  alert(`${explorerURL} has been set successfully`);
 }
 function toggleDebug(){
   if(debug){
