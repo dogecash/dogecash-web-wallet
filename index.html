@@ -150,10 +150,17 @@
         <div id="Settings" class="tabcontent">
             <form action="javascript:setExplorer()">
               <label for="explorer">Choose a explorer:</label>
-              <select id="explorer" name="explorer">
+              <select id="explorer" name="explorer" oninput="explorerCheck()">
                 <option value="explorer.dogec.io">https://explorer.dogec.io/</option>
+                <option value="none">https://none.com</option>
                 <option value="custom">custom (In Development)</option>
               </select>
+              <div id='customExplorer' style='display:none;'>
+                <input type="text" id="explorerURL" name="explorerURL" placeholder="explorer.dogec.io"><br>
+                <select id="explorerType" name="explorerType">
+                  <option value="blockbook">blockbook</option>
+                </select>
+              </div>
               <br>
               <input type="submit" style='background-color:#243646;color:#dddfe2;'>
           </form>
@@ -257,6 +264,15 @@
           // No match, bump the attempts
           attempts++;
         }
+      }
+    }
+    function explorerCheck(){
+      let checkcustom = document.getElementById("explorer").value;
+      let checkcustomOpen = document.getElementById("customExplorer").style.display;
+      if(checkcustom == 'custom' && checkcustomOpen != "block"){
+        toggleDropDown('customExplorer')
+      }else if(checkcustom != 'custom'){
+        document.getElementById("customExplorer").style.display = 'none';
       }
     }
     function toggleDropDown(id){
